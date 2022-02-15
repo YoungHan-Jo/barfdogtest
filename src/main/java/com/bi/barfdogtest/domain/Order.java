@@ -1,10 +1,13 @@
 package com.bi.barfdogtest.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.FetchType.*;
@@ -12,6 +15,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter @Setter
 @Table(name = "orders") // 테이블 이름 수동 설정
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -23,7 +27,7 @@ public class Order {
     private Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(fetch = LAZY, cascade = CascadeType.ALL) // 일 대 일 관계 // FK를 어디둘지 정해야함.
     @JoinColumn(name = "delivery_id") // 엑세스가 더 높은곳을 연관관계의 주인으로 설정
