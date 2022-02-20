@@ -1,9 +1,6 @@
 package com.bi.barfdogtest.service;
 
-import com.bi.barfdogtest.domain.Delivery;
-import com.bi.barfdogtest.domain.Member;
-import com.bi.barfdogtest.domain.Order;
-import com.bi.barfdogtest.domain.OrderItem;
+import com.bi.barfdogtest.domain.*;
 import com.bi.barfdogtest.domain.item.Item;
 import com.bi.barfdogtest.repository.ItemRepository;
 import com.bi.barfdogtest.repository.MemberRepository;
@@ -11,6 +8,8 @@ import com.bi.barfdogtest.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -58,8 +57,13 @@ public class OrderService {
         order.cancel();
     }
 
+
+
     /*
     * 검색
     * */
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByCriteria(orderSearch);
+    }
 
 }
