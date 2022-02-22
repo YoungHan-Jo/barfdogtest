@@ -4,6 +4,8 @@ import com.bi.barfdogtest.domain.Address;
 import com.bi.barfdogtest.domain.Order;
 import com.bi.barfdogtest.domain.OrderStatus;
 import com.bi.barfdogtest.repository.OrderRepository;
+import com.bi.barfdogtest.repository.order.simplequery.OrderSimpleQueryDto;
+import com.bi.barfdogtest.repository.order.simplequery.OrderSimpleRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 public class OrderSimpleApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderSimpleRepository orderSimpleRepository;
 
     @GetMapping("/api/v3/simple-orders")
     public Result ordersV3() {
@@ -29,6 +32,12 @@ public class OrderSimpleApiController {
                 .collect(Collectors.toList());
 
         return new Result(collect);
+    }
+
+    @GetMapping("/api/v4/simple-orders")
+    public Result ordersV4() {
+        List<OrderSimpleQueryDto> orderDtos = orderSimpleRepository.findOrderDtos();
+        return new Result(orderDtos);
     }
 
     @Data
