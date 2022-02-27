@@ -2,10 +2,13 @@ package com.bi.barfdogtest.api;
 
 import com.bi.barfdogtest.domain.*;
 import com.bi.barfdogtest.repository.OrderRepository;
+import com.bi.barfdogtest.repository.order.query.OrderQueryDto;
+import com.bi.barfdogtest.repository.order.query.OrderQueryRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v2/orders")
     public Result ordersV2() {
@@ -36,9 +40,32 @@ public class OrderApiController {
         return new Result(collect);
     }
 
+    @GetMapping("/api/v3.1/orders")
+    public Result ordersV3_page(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
+        List<OrderDto> collect = orders.stream()
+                .map(o -> new OrderDto(o))
+                .collect(Collectors.toList());
+        return new Result(collect);
+    }
+
+    @GetMapping("/api/v4/orders")
+    public Result ordersV4() {
+        List<OrderQueryDto> orders = orderQueryRepository.findOrderQueryDtos();
+        return new Result(orders);
+    }
+
+    @GetMapping("/api/v5/orders")
+    public Result ordersV5() {
+        List<OrderQueryDto> orders = orderQueryRepository.findAllByDto_optimization();
+        return new Result(orders);
+    }
+
     @Data
     @AllArgsConstructor
-    static class Result<T>{
+    static class Result<T> {
         private T data;
     }
 

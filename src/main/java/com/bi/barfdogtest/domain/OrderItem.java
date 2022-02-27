@@ -1,7 +1,9 @@
 package com.bi.barfdogtest.domain;
 
 import com.bi.barfdogtest.domain.item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -26,7 +29,6 @@ public class OrderItem {
     private Order order;
 
     private int orderPrice; // 주문가격
-
     private int count; // 주문 수량
 
     // == 생성 메소드 == //

@@ -1,6 +1,7 @@
 package com.bi.barfdogtest.domain.item;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Book extends Item {
 
     private String author;
