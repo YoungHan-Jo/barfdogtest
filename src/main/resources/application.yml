@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://binter.synology.me:3307/barfdogtest?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://binter.synology.me:3307/jpastudytest?characterEncoding=UTF-8&serverTimezone=UTC
     driver-class-name: org.mariadb.jdbc.Driver
     username: britishinter
     password: Britain001!
