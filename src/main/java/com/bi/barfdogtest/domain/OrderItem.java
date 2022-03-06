@@ -3,25 +3,28 @@ package com.bi.barfdogtest.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Getter @Setter
+@Getter
 public class OrderItem {
 
     @Id @GeneratedValue
     @Column(name = "orderItem_id")
     private Long id;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    @Column(name = "item_id")
-    private Long itemId;
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 
     private int orderPrice;
     private int count;
+
+    public void changOrder(Order order) {
+        this.order = order;
+    }
 }
