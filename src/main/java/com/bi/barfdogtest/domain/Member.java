@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 //@Table(uniqueConstraints = ) // 여기에 테이블 조건 같은거 다 적어두면 DB 까서 볼 필요없음
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -19,7 +19,7 @@ public class Member {
     @Column(length = 20) // 길이를 여기에 적어두면 DB 까서 볼 필요 없음.
     private String name;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "locker_id")
     private Locker locker;
 

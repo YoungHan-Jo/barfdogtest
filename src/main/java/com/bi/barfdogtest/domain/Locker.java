@@ -1,12 +1,13 @@
 package com.bi.barfdogtest.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.management.remote.JMXAddressable;
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Locker extends BaseEntity {
 
     @Id @GeneratedValue
