@@ -1,5 +1,6 @@
-package com.bi.barfdogtest.domain;
+package com.bi.barfdogtest.domain.item;
 
+import com.bi.barfdogtest.domain.Category;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,9 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+public abstract class Item {
 
     @Id @GeneratedValue
     @Column(name = "item_id")

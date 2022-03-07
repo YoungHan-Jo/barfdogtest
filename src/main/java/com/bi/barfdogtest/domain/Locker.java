@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-public class Locker {
+public class Locker extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "locker_id")

@@ -2,6 +2,7 @@ package com.bi.barfdogtest;
 
 import com.bi.barfdogtest.domain.Order;
 import com.bi.barfdogtest.domain.OrderItem;
+import com.bi.barfdogtest.domain.item.Movie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +31,11 @@ public class InitDb {
         public void dbInit1() {
             // 내용
 
-            Order order = new Order();
-            order.addOrderItem(new OrderItem());
-
-
+            Movie movie = new Movie();
+            movie.setName("movie1");
+            movie.setPrice(20000);
+            movie.setStockQuantity(100);
+            em.persist(movie);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.bi.barfdogtest.domain;
 
+import com.bi.barfdogtest.domain.item.Item;
 import lombok.Getter;
 
 import javax.persistence.*;
