@@ -25,4 +25,5 @@ public abstract class Item extends BaseEntity {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
 }

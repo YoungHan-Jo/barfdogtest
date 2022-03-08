@@ -18,4 +18,6 @@ public abstract class BaseEntity { // 추상 클래스로 만들기
     private LocalDateTime createdDate;
     private String lastModifiedBy;
     private LocalDateTime lastModifiedDate;
+
+
 }

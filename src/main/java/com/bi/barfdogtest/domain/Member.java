@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +25,13 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "locker_id")
     private Locker locker;
 
-    private String city;
-    private String street;
-    private String zipcode;
+    @Embedded
+    private Period workPeriod;
+
+    @Embedded
+    private Address homeAddress;
+
+
 
 //    @OneToMany(mappedBy = "member")
 //    private List<Order> orders = new ArrayList<>();
