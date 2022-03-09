@@ -23,6 +23,13 @@ public class Member extends BaseEntity {
     @Column(length = 20) // 길이를 여기에 적어두면 DB 까서 볼 필요 없음.
     private String name;
 
+    private int age;
+
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "locker_id")
     private Locker locker;
