@@ -2,17 +2,19 @@ package com.bi.barfdogtest.domain.item;
 
 import com.bi.barfdogtest.domain.BaseEntity;
 import com.bi.barfdogtest.domain.Category;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Getter @Setter
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn
+@Entity
 public abstract class Item extends BaseEntity {
 
     @Id @GeneratedValue

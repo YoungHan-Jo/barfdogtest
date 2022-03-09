@@ -7,7 +7,9 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -31,6 +33,22 @@ public class Member extends BaseEntity {
     @Embedded
     private Address homeAddress;
 
+    @ElementCollection
+    @CollectionTable(name = "favorite_food", // 테이블 이름
+            joinColumns = @JoinColumn(name = "member_id") // FK 값 설정
+    )
+    @Column(name = "food_name") // 아직 다른곳에 존재하지 않기때문에 예외적으로 허용됨
+    private Set<String> favoriteFoods = new HashSet<>();
+//
+//    @ElementCollection
+//    @CollectionTable(name = "address", // 테이블 이름
+//            joinColumns = @JoinColumn(name = "member_id") // FK 값 설정
+//    )
+//    private List<Address> addressHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "member_id")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
 
 
 //    @OneToMany(mappedBy = "member")

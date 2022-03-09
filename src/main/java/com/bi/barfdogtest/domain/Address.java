@@ -1,25 +1,35 @@
 package com.bi.barfdogtest.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
 public class Address {
 
+    @Column(length = 10)
     private String city;
+    @Column(length = 20)
     private String street;
+    @Column(length = 5)
     private String zipcode;
 
-    public Address(String city, String street, String zipcode) {
-        this.city = city;
-        this.street = street;
-        this.zipcode = zipcode;
+    // 이러한 의미있는 메서드를 만들어서 깔끔하게 쓸 수 있따.
+    public String fullAddress() {
+        return getCity() + " " + getStreet() + " " + getZipcode();
+    }
+
+    public boolean isValid() {
+        // 값 있는지 없는지 체크
+        return true;
     }
 
 
