@@ -37,19 +37,24 @@ public class InitDb {
         public void dbInit1() {
             // 내용
 
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
             Member member = new Member();
-            member.setName("memberA");
-            member.setAge(10);
+            member.setName("member1");
+            member.setAge(20);
+
+            team.addMember(member);
+
             em.persist(member);
 
-            List<MemberDto> result = em.createQuery("select new com.bi.barfdogtest.domain.MemberDto(m.name, m.age) from Member m", MemberDto.class)
+            List<Member> result = em.createQuery("select m, (select avg(m1.age) from Member m1) from Member m", Member.class)
                     .getResultList();
 
-            for (MemberDto memberDto : result) {
-                System.out.println("memberDto = " + memberDto.getName());
-                System.out.println("memberDto = " + memberDto.getAge());
+            for (Member m : result) {
+                System.out.println("m = " + m.toString());
             }
-
 
         } // end of dbInit1()
     }

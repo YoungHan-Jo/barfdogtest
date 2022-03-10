@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Getter @Setter
 //@Table(uniqueConstraints = ) // 여기에 테이블 조건 같은거 다 적어두면 DB 까서 볼 필요없음
@@ -25,12 +27,12 @@ public class Member extends BaseEntity {
 
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = LAZY)
     @JoinColumn(name = "locker_id")
     private Locker locker;
 
@@ -64,4 +66,13 @@ public class Member extends BaseEntity {
 //    ** 연관관계를 잘 끊어내는게 중요함 **
     //    주문에 이미 FK로 memberId가 있기 때문에 Order테이블을 바로 검색하면 됨
 
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }
