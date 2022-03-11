@@ -2,6 +2,7 @@ package com.bi.barfdogtest;
 
 import com.bi.barfdogtest.domain.*;
 import com.bi.barfdogtest.domain.item.Book;
+import com.bi.barfdogtest.domain.item.Item;
 import com.bi.barfdogtest.domain.item.Movie;
 import com.bi.barfdogtest.domain.test.Child;
 import com.bi.barfdogtest.domain.test.Parent;
@@ -37,24 +38,29 @@ public class InitDb {
         public void dbInit1() {
             // 내용
 
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
+            Member member1 = new Member();
+            member1.setName("member1");
+            member1.setAge(11);
+            em.persist(member1);
 
-            Member member = new Member();
-            member.setName("member1");
-            member.setAge(20);
+            Member member2 = new Member();
+            member2.setName("member2");
+            member2.setAge(22);
+            em.persist(member2);
 
-            team.addMember(member);
-
-            em.persist(member);
-
-            List<Member> result = em.createQuery("select m, (select avg(m1.age) from Member m1) from Member m", Member.class)
+            List<String> resultList = em.createQuery(
+                            "select " +
+                                    "   case when m.age <= 19 then '학생요금'" +
+                                    "        when m.age >= 60 then '경로요금'" +
+                                    "        else '일반요금'" +
+                                    "   end" +
+                                    " from Member m", String.class)
                     .getResultList();
 
-            for (Member m : result) {
-                System.out.println("m = " + m.toString());
+            for (String s : resultList) {
+                System.out.println("s = " + s);
             }
+
 
         } // end of dbInit1()
     }

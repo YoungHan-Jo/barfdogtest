@@ -31,6 +31,9 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "team_id")
     private Team team;
 
+    @Enumerated(EnumType.STRING)
+    private MemberType membertype;
+
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "locker_id")
