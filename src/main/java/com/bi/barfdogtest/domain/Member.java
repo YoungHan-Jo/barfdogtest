@@ -15,6 +15,10 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
+@NamedQuery(
+        name = "Member.findByUsername",
+        query = "select m from Member m where m.name = :name"
+)
 //@Table(uniqueConstraints = ) // 여기에 테이블 조건 같은거 다 적어두면 DB 까서 볼 필요없음
 public class Member extends BaseEntity {
 

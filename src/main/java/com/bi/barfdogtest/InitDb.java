@@ -69,14 +69,20 @@ public class InitDb {
             em.flush();
             em.clear();
 
-            List<Member> results = em.createQuery(
-                            "select m from Member m where m.team = :team", Member.class)
-                    .setParameter("team", teamA)
-                    .getResultList();
+            // 자동 flush됨
+            int resultCount = em.createQuery(
+                            "update Member m" +
+                                    " set m.age = 20")
+                    .executeUpdate();
+            System.out.println("resultCount = " + resultCount);
 
-            for (Member result : results) {
-                System.out.println("result = " + result);
-            }
+            Member findMember = em.find(Member.class, member1.getId());
+            System.out.println("findMember = " + findMember.getAge());
+
+            em.clear();
+
+//            Member findMember2 = em.find(Member.class, member1.getId());
+//            System.out.println("findMember2 = " + findMember2.getAge());
 
 
         } // end of dbInit1()
