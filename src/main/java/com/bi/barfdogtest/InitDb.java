@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -38,6 +39,14 @@ public class InitDb {
         public void dbInit1() {
             // 내용
 
+            Team teamA = new Team();
+            teamA.setName("teamA");
+            em.persist(teamA);
+
+            Team teamB = new Team();
+            teamB.setName("teamB");
+            em.persist(teamB);
+
             Member member1 = new Member();
             member1.setName("member1");
             member1.setAge(11);
@@ -48,17 +57,25 @@ public class InitDb {
             member2.setAge(22);
             em.persist(member2);
 
-            List<String> resultList = em.createQuery(
-                            "select " +
-                                    "   case when m.age <= 19 then '학생요금'" +
-                                    "        when m.age >= 60 then '경로요금'" +
-                                    "        else '일반요금'" +
-                                    "   end" +
-                                    " from Member m", String.class)
+            Member member3 = new Member();
+            member3.setName("member3");
+            member3.setAge(22);
+            em.persist(member3);
+
+            teamA.addMember(member1);
+            teamA.addMember(member2);
+            teamB.addMember(member3);
+
+            em.flush();
+            em.clear();
+
+            List<Member> results = em.createQuery(
+                            "select m from Member m where m.team = :team", Member.class)
+                    .setParameter("team", teamA)
                     .getResultList();
 
-            for (String s : resultList) {
-                System.out.println("s = " + s);
+            for (Member result : results) {
+                System.out.println("result = " + result);
             }
 
 
